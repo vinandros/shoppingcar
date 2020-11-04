@@ -17,6 +17,11 @@ function loadListeners() {
     shoppingCar = [];
     clearHTML();
   });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    shoppingCar = JSON.parse(localStorage.getItem("shoppingCarItems")) || [];
+    shoppingCarHTML();
+  });
 }
 
 // functions
@@ -90,10 +95,16 @@ function shoppingCarHTML() {
         `;
     carContainer.appendChild(row);
   });
+
+  syncStorage();
 }
 
 function clearHTML() {
   while (carContainer.firstChild) {
     carContainer.removeChild(carContainer.firstChild);
   }
+}
+
+function syncStorage() {
+  localStorage.setItem("shoppingCarItems", JSON.stringify(shoppingCar));
 }
